@@ -17,7 +17,7 @@ class App extends React.Component {
   getHolidays() {
     axios.get('/holidays')
       .then(results => {
-        console.log('GET RESULTS: ', results);
+        this.setState({holidays: results.data})
       })
       .catch(err => {
         console.log('GET Holidays error: ', err);

@@ -10,7 +10,8 @@ const sequelize = new Sequelize(info.db, info.username, info.password, {
         exclude: ['createdAt', 'updatedAt', 'created_at', 'updated_at']
       }
     }
-  }
+  },
+  logging: false
 })
 
 module.exports = {
