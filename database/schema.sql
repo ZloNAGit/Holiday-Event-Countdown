@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS holidays (
   holidayDate DATE NOT NULL,
   theme TEXT,
   PRIMARY KEY (id)
-)
+);
 
 CREATE INDEX idx_holidays ON holidays(id);
