@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from 'react-bootstrap/Navbar';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +28,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>Hello There From React!</div>
+      <div>
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand>
+            Logo
+          </Navbar.Brand>
+        </Navbar>
+      </div>
     )
   }
 }
