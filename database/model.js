@@ -7,15 +7,15 @@ const Holidays = db.define('holidays', {
     allowNull: false,
     autoIncrement: true
   },
-  name: {
+  holidayName: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  date: {
+  holidayDate: {
     type: DataTypes.DATE,
     allowNull: false
   },
   theme: {
     type: DataTypes.TEXT
   }
-})
+});
