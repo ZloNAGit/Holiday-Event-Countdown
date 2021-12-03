@@ -1,0 +1,37 @@
+{
+  "name": "holiday-event-countdown",
+  "version": "1.0.0",
+  "description": "MVP",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZloNAGit/Holiday-Event-Countdown.git"
+  },
+  "author": "Thomas Rose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZloNAGit/Holiday-Event-Countdown/issues"
+  },
+  "homepage": "https://github.com/ZloNAGit/Holiday-Event-Countdown#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "babel-loader": "^8.2.3",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.3",
+    "react-dom": "^17.0.2",
+    "sequelize": "^6.12.0-alpha.1"
+  }
+}
