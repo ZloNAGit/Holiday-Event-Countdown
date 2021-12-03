@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   getHolidays() {
-    axios.get('/')
+    axios.get('/holidays')
       .then(results => {
         console.log('GET RESULTS: ', results);
       })

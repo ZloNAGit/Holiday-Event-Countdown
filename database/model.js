@@ -7,11 +7,11 @@ const Holidays = db.define('holidays', {
     allowNull: false,
     autoIncrement: true
   },
-  holidayName: {
+  holidayname: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  holidayDate: {
+  holidaydate: {
     type: DataTypes.DATE,
     allowNull: false
   },
@@ -21,7 +21,9 @@ const Holidays = db.define('holidays', {
 });
 
 module.exports = {
-  // Get Holidays
+  getHolidays: () => {
+    return Holidays.findAll()
+  }
 
   // Add Holiday
 
