@@ -3,7 +3,7 @@ const info = require('./config.js');
 
 const sequelize = new Sequelize(info.db, info.username, info.password, {
   host: 'localhost',
-  dialect: 'postgres'
+  dialect: 'postgres',
 })
 
 module.exports = {

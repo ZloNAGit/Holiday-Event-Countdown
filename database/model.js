@@ -19,3 +19,11 @@ const Holidays = db.define('holidays', {
     type: DataTypes.TEXT
   }
 });
+
+module.exports = {
+  // Get Holidays
+
+  // Add Holiday
+
+  // Remove Holiday
+}
