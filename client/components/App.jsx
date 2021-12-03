@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from 'react-bootstrap/Navbar';
+import { Navbar, NavDropdown } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,12 +27,18 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.holidays.length === 0) {
+      return null;
+    }
+
     return (
       <div>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand>
-            Logo
-          </Navbar.Brand>
+          <NavDropdown title="Holidays">
+            {this.state.holidays.map(holiday => {
+              return <NavDropdown.Item>{holiday.holidayname}</NavDropdown.Item>
+            })}
+          </NavDropdown>
         </Navbar>
       </div>
     )
