@@ -16,6 +16,7 @@ class App extends React.Component {
     }
     this.getHolidays = this.getHolidays.bind(this);
     this.calculateTime = this.calculateTime.bind(this);
+    this.selectHoliday = this.selectHoliday.bind(this);
   }
 
   componentDidMount() {
@@ -32,12 +33,18 @@ class App extends React.Component {
         return results;
       })
       .then(results => {
-        this.calculateTime(results.data[0].holidaydate);
-        setInterval(() => this.calculateTime(results.data[0].holidaydate), 1000);
+        this.calculateTime(this.state.currentHoliday.holidaydate);
+        setInterval(() => this.calculateTime(this.state.currentHoliday.holidaydate), 1000);
       })
       .catch(err => {
         console.log('GET Holidays error: ', err);
       })
+  }
+
+  selectHoliday(id) {
+    id = Number(id);
+    let holiday = this.state.holidays[id - 1];
+    this.setState({currentHoliday: holiday}, this.calculateTime(holiday.holidaydate))
   }
 
   calculateTime(holidayDate) {
@@ -66,10 +73,10 @@ class App extends React.Component {
 
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
-          <NavDropdown title="Holidays">
+        <Navbar bg="dark" variant="light">
+          <NavDropdown title="Holidays" onSelect={(eventKey) => this.selectHoliday(eventKey)}>
             {this.state.holidays.map(holiday => {
-              return <NavDropdown.Item key={holiday.id}>{holiday.holidayname}</NavDropdown.Item>
+              return <NavDropdown.Item key={holiday.id} eventKey={holiday.id}>{holiday.holidayname}</NavDropdown.Item>
             })}
           </NavDropdown>
         </Navbar>
