@@ -7,9 +7,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      holidays: []
+      holidays: [],
+      currentHoliday: null,
+      time: null
     }
     this.getHolidays = this.getHolidays.bind(this);
+    this.calculateTime = this.calculateTime.bind(this);
   }
 
   componentDidMount() {
@@ -19,11 +22,36 @@ class App extends React.Component {
   getHolidays() {
     axios.get('/holidays')
       .then(results => {
-        this.setState({holidays: results.data})
+        this.setState({
+          holidays: results.data,
+          currentHoliday: results.data[0]
+        })
+        return results;
+      })
+      .then(results => {
+        this.calculateTime(results.data[0].holidaydate);
       })
       .catch(err => {
         console.log('GET Holidays error: ', err);
       })
+  }
+
+  calculateTime(holidayDate) {
+    const targetDate = new Date(holidayDate);
+    const currentDate = new Date();
+
+    console.log('targetDate: ', targetDate);
+    console.log('targetDate variant: ', new Date("25 Dec 2021"));
+    console.log('currentDate: ', currentDate);
+
+    const totalSeconds = (targetDate - currentDate) / 1000;
+
+    const days = Math.floor(totalSeconds / 3600 / 24);
+    const hours = Math.floor(totalSeconds / 3600) % 24;
+    const minutes = Math.floor(totalSeconds / 60) % 60;
+    const seconds = Math.floor(totalSeconds) % 60;
+
+    console.log(days, hours, minutes, seconds)
   }
 
   render() {
@@ -40,6 +68,20 @@ class App extends React.Component {
             })}
           </NavDropdown>
         </Navbar>
+        <div>
+          <div className="days">
+            Days
+          </div>
+          <div className="hours">
+            Hours
+          </div>
+          <div className="minutes">
+            Minutes
+          </div>
+          <div className="seconds">
+            Seconds
+          </div>
+        </div>
       </div>
     )
   }
