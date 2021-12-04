@@ -73,7 +73,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Navbar bg="dark" variant="light">
+        <Navbar bg="dark" variant="dark">
           <NavDropdown title="Holidays" onSelect={(eventKey) => this.selectHoliday(eventKey)}>
             {this.state.holidays.map(holiday => {
               return <NavDropdown.Item key={holiday.id} eventKey={holiday.id}>{holiday.holidayname}</NavDropdown.Item>
@@ -85,20 +85,20 @@ class App extends React.Component {
         </div>
         <div className="time">
           <div className="days">
-            {this.state.days}
-            Days
+            <p>{this.state.days}</p>
+            <span>Days</span>
           </div>
           <div className="hours">
-            {this.state.hours}
-            Hours
+            <p>{this.state.hours}</p>
+            <span>Hours</span>
           </div>
           <div className="minutes">
-            {this.state.minutes}
-            Minutes
+            <p>{this.state.minutes}</p>
+            <span>Minutes</span>
           </div>
           <div className="seconds">
-            {this.state.seconds}
-            Seconds
+            <p>{this.state.seconds}</p>
+            <span>Seconds</span>
           </div>
         </div>
       </div>

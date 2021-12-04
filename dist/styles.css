@@ -1,3 +1,26 @@
-.bg-myRed {
-  background-color: crimson;
+.title {
+  background-color: red;
+  text-align: center;
+  font-size: 3em;
+  margin-top: 10%;
+}
+
+.time {
+  background-color: blue;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-evenly;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.time p {
+  background-color: chartreuse;
+  font-size: 7em;
+}
+
+.time span {
+  background-color: goldenrod;
+  font-size: 2em;
 }
