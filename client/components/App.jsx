@@ -9,7 +9,10 @@ class App extends React.Component {
     this.state = {
       holidays: [],
       currentHoliday: null,
-      time: null
+      days: null,
+      hours: null,
+      minutes: null,
+      seconds: null
     }
     this.getHolidays = this.getHolidays.bind(this);
     this.calculateTime = this.calculateTime.bind(this);
@@ -30,6 +33,7 @@ class App extends React.Component {
       })
       .then(results => {
         this.calculateTime(results.data[0].holidaydate);
+        setInterval(() => this.calculateTime(results.data[0].holidaydate), 1000);
       })
       .catch(err => {
         console.log('GET Holidays error: ', err);
@@ -40,10 +44,6 @@ class App extends React.Component {
     const targetDate = new Date(holidayDate);
     const currentDate = new Date();
 
-    console.log('targetDate: ', targetDate);
-    console.log('targetDate variant: ', new Date("25 Dec 2021"));
-    console.log('currentDate: ', currentDate);
-
     const totalSeconds = (targetDate - currentDate) / 1000;
 
     const days = Math.floor(totalSeconds / 3600 / 24);
@@ -51,7 +51,12 @@ class App extends React.Component {
     const minutes = Math.floor(totalSeconds / 60) % 60;
     const seconds = Math.floor(totalSeconds) % 60;
 
-    console.log(days, hours, minutes, seconds)
+    this.setState({
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
+    });
   }
 
   render() {
@@ -64,21 +69,28 @@ class App extends React.Component {
         <Navbar bg="dark" variant="dark">
           <NavDropdown title="Holidays">
             {this.state.holidays.map(holiday => {
-              return <NavDropdown.Item>{holiday.holidayname}</NavDropdown.Item>
+              return <NavDropdown.Item key={holiday.id}>{holiday.holidayname}</NavDropdown.Item>
             })}
           </NavDropdown>
         </Navbar>
-        <div>
+        <div className="title">
+            {this.state.currentHoliday.holidayname}
+        </div>
+        <div className="time">
           <div className="days">
+            {this.state.days}
             Days
           </div>
           <div className="hours">
+            {this.state.hours}
             Hours
           </div>
           <div className="minutes">
+            {this.state.minutes}
             Minutes
           </div>
           <div className="seconds">
+            {this.state.seconds}
             Seconds
           </div>
         </div>
