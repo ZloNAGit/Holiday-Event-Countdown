@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS holidays (
   id SERIAL,
   holidayName VARCHAR(50) NOT NULL,
-  holidayDate DATE NOT NULL,
+  holidayDate VARCHAR(30) NOT NULL,
   theme TEXT,
   PRIMARY KEY (id)
 );

@@ -12,7 +12,7 @@ const Holidays = db.define('holidays', {
     allowNull: false
   },
   holidaydate: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING(30),
     allowNull: false
   },
   theme: {
