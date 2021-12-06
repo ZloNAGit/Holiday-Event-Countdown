@@ -25,26 +25,17 @@ html,body {
   flex: 1;
 }
 
-.main::after {
-  content: "";
-  background-image:url(./imgs/christmas.jpg);
-  background-size: cover;
-  background-position: center;
-  opacity: 0.75;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-}
-
 .title {
   text-align: center;
   font-size: 3em;
   margin-top: 10%;
   font-family: 'Noto Sans', sans-serif;
   color: black;
+  text-shadow:
+   -2px -2px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+     1px 1px 0 white;
 }
 
 .time {
