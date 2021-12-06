@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Christmas from '../../dist/imgs/christmas.jpg';
+import NewYears from '../../dist/imgs/newyears.jpg';
 import { Navbar, NavDropdown, Form, Button, Modal } from 'react-bootstrap';
 
 class App extends React.Component {
@@ -15,7 +17,8 @@ class App extends React.Component {
       seconds: null,
       modal: false,
       formName: '',
-      date: ''
+      date: '',
+      currentTheme: Christmas
     }
     this.getHolidays = this.getHolidays.bind(this);
     this.calculateTime = this.calculateTime.bind(this);
@@ -51,13 +54,19 @@ class App extends React.Component {
   selectHoliday(id) {
     id = Number(id);
     let holiday;
+    let theme = '';
     for (let i = 0; i < this.state.holidays.length; i++) {
       if (this.state.holidays[i].id === id) {
         holiday = this.state.holidays[i];
         break;
       }
     }
-    this.setState({currentHoliday: holiday}, this.calculateTime(holiday.holidaydate))
+    if (holiday.holidayname === 'Christmas Day') {
+      theme = Christmas;
+    } else if (holiday.holidayname === "New Year's Day") {
+      theme = NewYears;
+    }
+    this.setState({currentHoliday: holiday, currentTheme: theme}, this.calculateTime(holiday.holidaydate))
   }
 
   openModal() {
@@ -164,6 +173,22 @@ class App extends React.Component {
               <p>{this.state.seconds}</p>
               <span>Seconds</span>
             </div>
+          </div>
+          <div id="background" style={
+            {content: "",
+            backgroundImage:`url(${this.state.currentTheme})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.75,
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: 'absolute',
+            zIndex: -1}
+          }
+          >
+
           </div>
         </div>
       </div>
