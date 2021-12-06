@@ -1,0 +1,73 @@
+html,body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.full {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.navbar {
+  height: 10%;
+}
+
+.main {
+  display: block;
+  position: relative;
+  flex: 1;
+}
+
+.main::after {
+  content: "";
+  background-image:url(./imgs/christmas.jpg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.75;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.title {
+  text-align: center;
+  font-size: 3em;
+  margin-top: 10%;
+  font-family: 'Noto Sans', sans-serif;
+  color: black;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-evenly;
+  margin-left: 25%;
+  margin-right: 25%;
+  color: white;
+  text-shadow:
+   -2px -2px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+     1px 1px 0 black;
+}
+
+.time p {
+  font-size: 8em;
+  margin-bottom: 0;
+}
+
+.time span {
+  font-size: 2em;
+  font-family: 'Noto Sans', sans-serif;
+}
