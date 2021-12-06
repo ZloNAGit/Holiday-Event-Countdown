@@ -18,14 +18,16 @@ const Holidays = db.define('holidays', {
   theme: {
     type: DataTypes.TEXT
   }
-});
+}, {timestamps: false});
 
 module.exports = {
   getHolidays: () => {
     return Holidays.findAll()
+  },
+  addHoliday: (name, date) => {
+    return Holidays.create({
+      holidayname: name,
+      holidaydate: date
+    })
   }
-
-  // Add Holiday
-
-  // Remove Holiday
 }

@@ -11,9 +11,13 @@ module.exports = {
       })
   },
   add: (req, res) => {
-
-  },
-  delete: (req, res) => {
-
+    model.addHoliday(req.body.name, req.body.date)
+      .then(() => {
+        res.sendStatus(200);
+        console.log('Holiday added!');
+      })
+      .catch(err => {
+        console.log('Error adding holiday: ', err);
+      })
   }
 }

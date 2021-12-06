@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, NavDropdown } from 'react-bootstrap';
+import { Navbar, NavDropdown, Form, Button, Modal } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,11 +12,18 @@ class App extends React.Component {
       days: null,
       hours: null,
       minutes: null,
-      seconds: null
+      seconds: null,
+      modal: false,
+      formName: '',
+      date: ''
     }
     this.getHolidays = this.getHolidays.bind(this);
     this.calculateTime = this.calculateTime.bind(this);
     this.selectHoliday = this.selectHoliday.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
   }
 
   componentDidMount() {
@@ -43,8 +50,42 @@ class App extends React.Component {
 
   selectHoliday(id) {
     id = Number(id);
-    let holiday = this.state.holidays[id - 1];
+    let holiday;
+    for (let i = 0; i < this.state.holidays.length; i++) {
+      if (this.state.holidays[i].id === id) {
+        holiday = this.state.holidays[i];
+        break;
+      }
+    }
     this.setState({currentHoliday: holiday}, this.calculateTime(holiday.holidaydate))
+  }
+
+  openModal() {
+    this.setState({modal: true});
+  }
+
+  closeModal() {
+    this.setState({modal: false});
+  }
+
+  handleFormChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value,
+    })
+  }
+
+  submitForm(e) {
+    let entries = e.split(',');
+    const myDate = new Date(entries[1]);
+    myDate.setHours( myDate.getHours() + 5 );
+    axios.post('/holidays', {
+      name: entries[0],
+      date: myDate
+    })
+      .then(() => {
+        this.closeModal();
+        this.getHolidays();
+      })
   }
 
   calculateTime(holidayDate) {
@@ -73,13 +114,35 @@ class App extends React.Component {
 
     return (
       <div className="full">
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark">
           <NavDropdown title="Holidays" onSelect={(eventKey) => this.selectHoliday(eventKey)}>
             {this.state.holidays.map(holiday => {
               return <NavDropdown.Item key={holiday.id} eventKey={holiday.id}>{holiday.holidayname}</NavDropdown.Item>
             })}
           </NavDropdown>
+          <Button variant="dark" onClick={this.openModal}>
+            Add Holiday/Event
+          </Button>
         </Navbar>
+        <Modal show={this.state.modal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Fill Holiday/Event Below</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group controlId="formName">
+              <Form.Label>Event Title: </Form.Label>
+              <Form.Control type="text" onChange={this.handleFormChange} placeholder="ex. Birthday"/>
+            </Form.Group>
+            <Form.Group controlId="date">
+              <Form.Label>Date: </Form.Label>
+              <Form.Control type="date" onChange={this.handleFormChange}/>
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="success" type="submit" onClick={() => this.submitForm(`${this.state.formName},${this.state.date}`)}>Submit</Button>
+            <Button variant="secondary" onClick={this.closeModal}>Close</Button>
+          </Modal.Footer>
+        </Modal>
         <div className="main">
           <div className="title">
               {this.state.currentHoliday.holidayname}
